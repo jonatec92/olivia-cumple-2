@@ -245,13 +245,30 @@ body.sonando .music-btn .barras{ display:flex; }
 
 <!-- MÚSICA: guardá tu archivo como "tu-cancion.mp3" en esta carpeta.
      Si no está, el botón no aparece. -->
-<audio id="musica" loop preload="metadata">
+<audio id="musica" loop preload="metadata" autoplay>
   <source src="tu-cancion.mp3" type="audio/mpeg" onerror="window.sinCancion=true">
 </audio>
 <button type="button" class="music-btn" id="musicaBtn" aria-label="Pausar o reproducir la música">
   <svg><use href="#ic-nota"/></svg>
-  <span class="barras"><i></i><i></i><i></i></span>
+  <span class="barras"><i></i><i></i><i></i><i></i><i></i><i></i></span>
 </button>
+
+<script>
+  // Asegura que empiece a reproducirse o maneja la interacción si el navegador la bloquea
+  window.addEventListener('DOMContentLoaded', () => {
+    const audio = document.getElementById('musica');
+    const playPromise = audio.play();
+    
+    if (playPromise !== undefined) {
+      playPromise.catch(() => {
+        // Si el navegador bloquea el autoplay, se reproducirá en cuanto el usuario haga clic en cualquier parte
+        document.addEventListener('click', () => {
+          audio.play();
+        }, { once: true });
+      });
+    }
+  });
+</script>
 
 <div class="card">
 
