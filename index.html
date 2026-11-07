@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Olivia cumple 2</title>
+<meta name="description" content="Nuestra pequeña Boo cumple 2 años. ¡Vení a festejar con Olivia!">
+<meta name="theme-color" content="#6f4fb0">
+<link rel="preconnect" href="https://fonts.googleapis.com/">
+<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&amp;family=Caveat:wght@600;700&amp;family=Nunito:wght@600;700;800&amp;display=swap" rel="stylesheet">
+
+<script>
+/* Si una imagen .webp no carga, prueba con la .png; si tampoco está, se esconde
+   (o el marco de la foto muestra un cartelito). */
+function planB(img, modo){
+  const alt = img.dataset.alt;
+  if(alt){ img.dataset.alt = ''; img.src = alt; return; }
+  if(modo === 'cartel') img.parentNode.classList.add('vacia');
+  else img.remove();
+}
+</script>
+
+<style>
+/* ============================================================
+   TEMA — "Monsters Inc.": el pelaje turquesa con manchas lilas de
+   Sulley, lila de Boo, verde Mike y florcitas, como las referencias.
+   Cambiando este bloque se recolorea toda la invitación.
+   ============================================================ */
+:root{
+  --blanco:#ffffff;
+  --papel:#fbfaff;
+  --turquesa:#3fc2d6;
+  --turquesa-claro:#d5f2f6;
+  --lila:#b9a2e6;
+  --lila-2:#9a7fd6;
+  --violeta:#6f4fb0;
+  --violeta-osc:#4e3486;
+  --verde:#9ccc3c;
+  --verde-osc:#6f9a1f;
+  --rosa:#f3a6c4;
+  --tinta:#3d3456;
+  --tinta-suave:#766c93;
+
+  --display:'Fredoka', system-ui, sans-serif;
+  --mano:'Caveat', cursive;
+  --cuerpo:'Nunito', system-ui, sans-serif;
+  --col:460px;
+
+  /* lunares lilas sobre celeste (como la referencia de Julia) */
+  --lunares:radial-gradient(circle, rgba(185,162,230,.8) 13px, transparent 14px) 0 0/78px 78px,
+            radial-gradient(circle, rgba(185,162,230,.8) 9px, transparent 10px) 39px 39px/78px 78px, var(--turquesa-claro);
+}
+*{ box-sizing:border-box; }
+html{ scroll-behavior:smooth; -webkit-text-size-adjust:100%; }
+body{ margin:0; background:url("pelaje.jpg") center/cover fixed, var(--turquesa); color:var(--tinta); font-family:var(--cuerpo); font-weight:600; font-size:15.5px; line-height:1.6; -webkit-font-smoothing:antialiased; overflow-x:hidden; }
+img{ max-width:100%; display:block; }
+button{ font:inherit; color:inherit; }
+[hidden]{ display:none !important; }
+p{ margin:0 0 10px; }
+p:last-child{ margin-bottom:0; }
+
+.card{ position:relative; width:100%; max-width:var(--col); margin:0 auto; background:var(--papel); box-shadow:0 0 50px rgba(40,20,80,.4); overflow:hidden; }
+section{ position:relative; padding:58px 22px; text-align:center; overflow:hidden; }
+.pelaje{ background:url("pelaje.jpg") center/cover, var(--turquesa); }
+.lunares{ background:var(--lunares); }
+.z{ position:relative; z-index:2; }
+
+/* tarjeta blanca con filete lila (como la referencia de Julia) */
+.tarjeta{ position:relative; max-width:370px; margin:0 auto; padding:30px 20px; background:var(--blanco); border-radius:24px; box-shadow:0 0 0 5px var(--turquesa-claro), 0 0 0 7px var(--lila), 0 16px 30px rgba(40,20,80,.28); }
+
+.kicker{ font-family:var(--display); font-weight:600; font-size:.74rem; letter-spacing:.2em; text-transform:uppercase; color:var(--verde-osc); margin:0 0 4px; padding-left:.2em; }
+.titulo{ font-family:var(--display); font-weight:700; font-size:2rem; line-height:1.1; color:var(--lila-2); margin:0 0 8px; text-wrap:balance; }
+.texto{ max-width:300px; margin-left:auto; margin-right:auto; text-wrap:balance; color:var(--tinta-suave); }
+
+/* florcitas de margarita (como las de la referencia de Eliana) */
+.flor{ position:absolute; z-index:1; width:var(--s,34px); height:var(--s,34px); color:var(--c,#fff); pointer-events:none; animation:gira 9s linear infinite; }
+@keyframes gira{ to{ transform:rotate(360deg); } }
+.flores-fila{ display:flex; justify-content:center; gap:8px; margin:12px 0 0; }
+.flores-fila svg{ width:22px; height:22px; }
+
+/* personajes que se asoman */
+.asoma{ position:absolute; z-index:1; pointer-events:none; }
+.asoma img{ width:100%; height:auto; filter:drop-shadow(0 6px 8px rgba(40,20,80,.25)); }
+.meneo{ transform-origin:50% 100%; animation:meneo 4.6s ease-in-out infinite; }
+@keyframes meneo{ 0%,100%{ transform:rotate(-3deg);} 50%{ transform:rotate(3deg);} }
+
+/* ============================================================
+   PORTADA
+   ============================================================ */
+.portada{ position:relative; min-height:100svh; display:flex; align-items:center; justify-content:center; padding:clamp(22px, 4svh, 40px) 14px; background:url("pelaje.jpg") center/cover, var(--turquesa); }
+.portada .tarjeta{ width:100%; max-width:380px; padding:clamp(18px, 3svh, 28px) 16px clamp(16px, 2.6svh, 24px); container-type:inline-size; }
+.chip-invitado{ display:none; margin:0 auto 6px; padding:4px 12px 3px; border-radius:999px; border:1.5px solid var(--lila); font-family:var(--display); font-weight:600; font-size:.6rem; letter-spacing:.14em; text-transform:uppercase; color:var(--violeta); background:#fff; width:max-content; }
+.chip-invitado.on{ display:block; }
+.pequena{ font-family:var(--display); font-weight:700; font-size:5cqw; letter-spacing:.14em; text-transform:uppercase; color:var(--turquesa); margin:0; line-height:1.2; }
+.pequena b{ display:block; font-size:10cqw; letter-spacing:.06em; color:var(--violeta); line-height:1; }
+.nombre{ font-family:var(--display); font-weight:700; font-size:22cqw; line-height:.95; color:var(--lila); margin:1cqw 0 0; white-space:nowrap; text-shadow:0 3px 0 rgba(111,79,176,.18); }
+/* la cinta verde con la edad */
+.cinta-edad{ position:relative; display:inline-block; margin:1cqw 0 0 18cqw; padding:1.2cqw 8cqw 1.4cqw; background:var(--verde); color:#fff; font-family:var(--mano); font-weight:700; font-size:8cqw; line-height:1; transform:rotate(-5deg); clip-path:polygon(0 0, 100% 0, 94% 50%, 100% 100%, 0 100%, 6% 50%); }
+.puerta{ width:78%; margin:2cqw auto 0; filter:drop-shadow(0 8px 10px rgba(40,20,80,.25)); }
+@supports (height:1svh){ .puerta{ width:auto; max-width:78%; max-height:34svh; } }
+.frase-portada{ font-family:var(--display); font-weight:600; font-size:5cqw; line-height:1.25; color:var(--lila-2); text-transform:uppercase; margin:3cqw 0 0; text-wrap:balance; }
+.fecha{ display:flex; align-items:center; justify-content:center; gap:3cqw; margin:3cqw 0 0; }
+.fecha .lado{ flex:1; font-family:var(--mano); font-weight:700; font-size:7.2cqw; line-height:1; color:var(--lila-2); padding:1cqw 0; border-top:1.5px solid var(--verde); border-bottom:1.5px solid var(--verde); }
+.fecha .mid{ display:flex; flex-direction:column; align-items:center; line-height:1; }
+.fecha .mid b{ font-family:var(--display); font-weight:700; font-size:16cqw; color:var(--lila); }
+.fecha .mid small{ font-family:var(--mano); font-weight:700; font-size:6cqw; color:var(--lila-2); margin-top:-1cqw; }
+.lugar-portada{ font-family:var(--display); font-weight:600; font-size:3.8cqw; letter-spacing:.06em; text-transform:uppercase; color:var(--tinta-suave); margin:3cqw 0 0 !important; line-height:1.4; }
+.scroll-cue{ position:absolute; z-index:3; left:0; right:0; bottom:6px; display:flex; flex-direction:column; align-items:center; gap:2px; font-family:var(--display); font-weight:600; font-size:.58rem; letter-spacing:.24em; text-transform:uppercase; color:#fff; padding-left:.24em; text-shadow:0 1px 3px rgba(40,20,80,.7); }
+.scroll-cue i{ width:9px; height:9px; border-right:2px solid #fff; border-bottom:2px solid #fff; transform:rotate(45deg); animation:baja 1.8s ease-in-out infinite; }
+@keyframes baja{ 0%,100%{ opacity:.35; transform:rotate(45deg) translateY(0);} 50%{ opacity:1; transform:rotate(45deg) translateY(4px);} }
+
+/* ============================================================
+   FRASE
+   ============================================================ */
+.frase .mike{ width:min(58%, 220px); margin:0 auto 6px; }
+.frase .cita{ font-family:var(--display); font-weight:700; font-size:1.7rem; line-height:1.15; color:var(--violeta); margin:0 0 8px; text-wrap:balance; }
+
+/* ============================================================
+   CUENTA REGRESIVA — puertitas de colores (las de la fábrica)
+   ============================================================ */
+.reloj{ display:grid; grid-template-columns:repeat(4,1fr); gap:8px; max-width:340px; margin:18px auto 0; }
+.puertita{ position:relative; aspect-ratio:3/4.2; border-radius:10px 10px 4px 4px; display:flex; flex-direction:column; align-items:center; justify-content:center; padding-top:10%;
+  box-shadow:inset 0 0 0 3px rgba(255,255,255,.55), inset 0 -8px 0 rgba(0,0,0,.08), 0 6px 12px rgba(40,20,80,.22); }
+.puertita::before{ content:""; position:absolute; top:8%; left:18%; right:18%; height:20%; border-radius:4px; border:2px solid rgba(255,255,255,.55); }
+.puertita::after{ content:""; position:absolute; right:12%; top:55%; width:9px; height:9px; border-radius:50%; background:#f3d36b; box-shadow:0 1px 0 rgba(0,0,0,.2); }
+.puertita:nth-child(1){ background:var(--lila); } .puertita:nth-child(2){ background:var(--turquesa); }
+.puertita:nth-child(3){ background:var(--verde); } .puertita:nth-child(4){ background:var(--rosa); }
+.puertita b{ position:relative; font-family:var(--display); font-weight:700; font-size:1.7rem; line-height:1; color:#fff; text-shadow:0 2px 0 rgba(0,0,0,.14); font-variant-numeric:tabular-nums; }
+.puertita small{ position:relative; font-family:var(--display); font-weight:600; font-size:.56rem; letter-spacing:.14em; text-transform:uppercase; color:#fff; margin-top:2px; }
+
+/* ============================================================
+   FOTO — con marco de puerta lila
+   ============================================================ */
+.marco-puerta{ position:relative; width:min(64%, 230px); margin:14px auto 0; aspect-ratio:3/4; padding:10px; border-radius:16px 16px 6px 6px; background:var(--lila); box-shadow:0 0 0 4px #fff, 0 0 0 6px var(--lila-2), 0 12px 24px rgba(40,20,80,.25); }
+.marco-puerta .circulo{ position:relative; width:100%; height:100%; border-radius:10px 10px 4px 4px; overflow:hidden; background:var(--turquesa-claro); }
+.marco-puerta img{ width:100%; height:100%; object-fit:cover; object-position:50% 30%; }
+.marco-puerta .vacia img{ display:none; }
+.marco-puerta .cartelito{ position:absolute; inset:0; display:none; place-items:center; padding:18px; font-family:var(--display); font-weight:600; font-size:.66rem; line-height:1.6; letter-spacing:.12em; text-transform:uppercase; color:var(--violeta); }
+.marco-puerta .vacia .cartelito{ display:grid; }
+.leyenda{ font-family:var(--mano); font-weight:700; font-size:1.9rem; line-height:1.1; color:var(--lila-2); margin:16px 0 0 !important; }
+
+/* ============================================================
+   CUÁNDO Y DÓNDE
+   ============================================================ */
+.cuando{ display:grid; grid-template-columns:1fr 1fr; margin:8px 0 0; }
+.cuando > div{ display:flex; flex-direction:column; align-items:center; padding:2px 6px; }
+.cuando > div + div{ border-left:2px dashed var(--lila); }
+.cuando .lab{ font-family:var(--display); font-weight:600; font-size:.66rem; letter-spacing:.2em; text-transform:uppercase; color:var(--tinta-suave); }
+.cuando .grande{ font-family:var(--display); font-weight:700; font-size:2.8rem; line-height:1.05; color:var(--lila-2); }
+.cuando .sub{ font-family:var(--mano); font-weight:700; font-size:1.3rem; color:var(--verde-osc); line-height:1; }
+.donde-lugar{ margin:16px 0 0 !important; padding-top:14px; border-top:2px dashed var(--lila); }
+.donde-lugar b{ display:block; font-family:var(--display); font-weight:700; font-size:1.15rem; color:var(--violeta); }
+.donde-lugar span{ color:var(--tinta-suave); }
+
+.acciones{ display:flex; flex-direction:column; gap:12px; max-width:300px; margin:20px auto 0; }
+.btn{
+  display:flex; align-items:center; justify-content:center; gap:9px; width:100%;
+  padding:13px 18px; border:none; border-radius:999px;
+  font-family:var(--display); font-weight:600; font-size:.82rem; letter-spacing:.12em; text-transform:uppercase;
+  text-decoration:none; cursor:pointer; -webkit-tap-highlight-color:transparent; touch-action:manipulation; transition:transform .12s ease;
+}
+.btn:active{ transform:translateY(2px); }
+.btn svg{ width:17px; height:17px; flex:none; }
+.btn.lila{ background:var(--lila-2); color:#fff; box-shadow:0 5px 0 var(--violeta); }
+.btn.verde{ background:var(--verde); color:#fff; box-shadow:0 5px 0 var(--verde-osc); }
+.btn.linea{ background:#fff; color:var(--violeta); box-shadow:inset 0 0 0 2px var(--lila-2), 0 5px 0 rgba(111,79,176,.2); }
+.btn:disabled{ filter:saturate(.25) brightness(1.2); cursor:not-allowed; }
+.cal-menu{ display:none; margin-top:8px; border-radius:16px; overflow:hidden; background:#fff; box-shadow:0 0 0 2px var(--lila-2); }
+.cal-menu.open{ display:block; }
+.cal-menu a{ display:block; padding:12px; font-family:var(--display); font-weight:600; font-size:.72rem; letter-spacing:.14em; text-transform:uppercase; color:var(--violeta); text-decoration:none; }
+.cal-menu a + a{ border-top:1.5px solid var(--turquesa-claro); }
+
+/* ============================================================
+   CONFIRMACIÓN
+   ============================================================ */
+.form{ max-width:300px; margin:18px auto 0; text-align:left; }
+.campo{ margin-bottom:16px; }
+.campo label, .campo .lbl{ display:block; margin-bottom:7px; font-family:var(--display); font-weight:600; font-size:.68rem; letter-spacing:.18em; text-transform:uppercase; color:var(--violeta); }
+.campo input{ width:100%; padding:12px 18px; border:2px solid var(--lila); border-radius:999px; background:#fff; font-family:var(--cuerpo); font-weight:700; font-size:16px; color:var(--tinta); }
+.campo input:focus{ outline:3px solid var(--turquesa-claro); outline-offset:1px; border-color:var(--lila-2); }
+.campo input::placeholder{ color:#a79fc0; }
+.opciones{ display:flex; gap:8px; }
+.opciones button{ flex:1; padding:12px 6px; border:2px solid var(--lila); border-radius:999px; background:#fff; color:var(--violeta); font-family:var(--display); font-weight:600; font-size:.7rem; letter-spacing:.1em; text-transform:uppercase; cursor:pointer; }
+.opciones button.on{ background:var(--lila-2); border-color:var(--lila-2); color:#fff; }
+.contador{ display:flex; align-items:center; justify-content:space-between; border:2px solid var(--lila); border-radius:999px; padding:4px; background:#fff; }
+.contador button{ width:42px; height:42px; border:none; border-radius:50%; background:var(--verde); color:#fff; font-size:1.3rem; font-weight:700; cursor:pointer; }
+.contador button:disabled{ opacity:.3; cursor:not-allowed; }
+.contador b{ display:block; font-family:var(--display); font-weight:700; font-size:1.5rem; color:var(--lila-2); text-align:center; line-height:1.1; }
+.contador small{ display:block; font-family:var(--display); font-weight:600; font-size:.55rem; letter-spacing:.14em; text-transform:uppercase; color:var(--tinta-suave); text-align:center; }
+/*#campoCuantos{ max-height:0; overflow:hidden; margin-bottom:0; transition:max-height .4s ease, margin .4s ease; }
+#campoCuantos.open{ max-height:120px; margin-bottom:16px; }*/
+.gracias{ display:none; margin-top:10px; }
+.gracias.show{ display:block; animation:sube .6s ease; }
+.gracias h3{ font-family:var(--display); font-weight:700; font-size:1.8rem; color:var(--lila-2); margin:0 0 6px; line-height:1.1; }
+@keyframes sube{ from{ opacity:0; transform:translateY(8px);} to{ opacity:1; transform:none;} }
+#campoCuantos{display: none;}
+
+/* ============================================================
+   CIERRE
+   ============================================================ */
+.cierre .dibujo{ width:min(80%, 290px); margin:0 auto 8px; transform:rotate(-2deg); }
+.cierre .te-espero{ font-family:var(--mano); font-weight:700; font-size:2.4rem; line-height:1; color:var(--violeta); margin:0 !important; }
+.cierre .nombre-final{ font-family:var(--display); font-weight:700; font-size:3.6rem; line-height:1.05; color:var(--lila); margin:0 0 4px !important; }
+.pie{ background:var(--violeta-osc); text-align:center; padding:18px 20px 24px; }
+.marca{ font-family:var(--display); font-weight:600; font-size:.8rem; letter-spacing:.04em; color:#fff; margin:0; }
+.marca small{ display:block; font-size:.58rem; letter-spacing:.2em; text-transform:uppercase; color:var(--verde); margin-bottom:4px; }
+
+/* ---------- Música ---------- */
+.music-btn{ position:fixed; right:16px; bottom:16px; z-index:30; width:48px; height:48px; border-radius:50%; border:2px solid #fff; background:var(--lila-2); box-shadow:0 6px 16px rgba(40,20,80,.35); display:grid; place-items:center; cursor:pointer; opacity:0; visibility:hidden; transform:translateY(10px); transition:opacity .5s ease, transform .5s ease, visibility .5s; }
+.music-btn.visible{ opacity:1; visibility:visible; transform:none; }
+.music-btn svg{ width:18px; height:18px; color:#fff; }
+.music-btn .barras{ display:none; gap:2.5px; align-items:flex-end; height:14px; }
+.music-btn .barras i{ width:2.5px; background:#fff; animation:eq .9s ease-in-out infinite; }
+.music-btn .barras i:nth-child(1){ height:6px; } .music-btn .barras i:nth-child(2){ height:13px; animation-delay:.18s; } .music-btn .barras i:nth-child(3){ height:9px; animation-delay:.36s; }
+@keyframes eq{ 0%,100%{ transform:scaleY(.35);} 50%{ transform:scaleY(1);} }
+body.sonando .music-btn svg{ display:none; }
+body.sonando .music-btn .barras{ display:flex; }
+
+.reveal{ opacity:0; transform:translateY(18px); transition:opacity .8s ease, transform .8s ease; }
+.reveal.in{ opacity:1; transform:none; }
+@media (prefers-reduced-motion:reduce){
+  html{ scroll-behavior:auto; }
+  .reveal{ opacity:1; transform:none; transition:none; }
+  .meneo, .flor, .scroll-cue i, .music-btn .barras i{ animation:none; }
+}
+@media (max-width:370px){ .titulo{ font-size:1.8rem; } .puertita b{ font-size:1.45rem; } }
+</style>
+</head>
+<body>
+
+<svg style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true">
+  <!-- margarita -->
+  <symbol id="flor" viewBox="0 0 40 40">
+    <g fill="currentColor"><ellipse cx="20" cy="8" rx="6.5" ry="8"/><ellipse cx="20" cy="32" rx="6.5" ry="8"/><ellipse cx="8" cy="20" rx="8" ry="6.5"/><ellipse cx="32" cy="20" rx="8" ry="6.5"/>
+      <ellipse cx="11.5" cy="11.5" rx="6.5" ry="7.5" transform="rotate(-45 11.5 11.5)"/><ellipse cx="28.5" cy="28.5" rx="6.5" ry="7.5" transform="rotate(-45 28.5 28.5)"/>
+      <ellipse cx="28.5" cy="11.5" rx="6.5" ry="7.5" transform="rotate(45 28.5 11.5)"/><ellipse cx="11.5" cy="28.5" rx="6.5" ry="7.5" transform="rotate(45 11.5 28.5)"/></g>
+    <circle cx="20" cy="20" r="6.5" fill="#f5d34d"/>
+  </symbol>
+  <symbol id="ic-mapa" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10.5c0 5.3-8 12-8 12s-8-6.7-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10.3" r="2.8"/></g></symbol>
+  <symbol id="ic-cal" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3.2" y="5" width="17.6" height="16" rx="2"/><path d="M3.2 10h17.6M8 3v4M16 3v4"/></g></symbol>
+  <symbol id="ic-wa" viewBox="0 0 24 24"><path d="M21 11.5a8.5 8.5 0 0 1-12.6 7.4L3 21l2.2-5.2A8.5 8.5 0 1 1 21 11.5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+  <symbol id="ic-nota" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V6l10-2v12"/><circle cx="6" cy="18" r="3"/><circle cx="16" cy="16" r="3"/></g></symbol>
+</svg>
+
+<!-- MÚSICA: guardá tu archivo como "tu-cancion.mp3" en esta carpeta.
+     Si no está, el botón no aparece. -->
+<audio id="musica" loop preload="metadata">
+  <source src="tu-cancion.mp3" type="audio/mpeg" onerror="window.sinCancion=true">
+</audio>
+<button type="button" class="music-btn" id="musicaBtn" aria-label="Pausar o reproducir la música">
+  <svg><use href="#ic-nota"/></svg>
+  <span class="barras"><i></i><i></i><i></i></span>
+</button>
+
+<div class="card">
+
+  <!-- ==================== PORTADA ====================
+       ✎ EDITABLE: nombre, edad, fecha, hora y lugar -->
+  <header class="portada" id="portada">
+    <svg class="flor" style="--s:40px;--c:#fff;left:8px;top:14px"><use href="#flor"/></svg>
+    <svg class="flor" style="--s:28px;--c:#f3a6c4;right:14px;top:30px;animation-duration:12s"><use href="#flor"/></svg>
+    <svg class="flor" style="--s:34px;--c:#b9a2e6;left:12px;bottom:40px;animation-duration:11s"><use href="#flor"/></svg>
+    <svg class="flor" style="--s:44px;--c:#fff;right:8px;bottom:24px"><use href="#flor"/></svg>
+    <div class="tarjeta z">
+      <p class="chip-invitado" id="chipInvitado"></p>
+      <p class="pequena">Nuestra pequeña <b>Princesa</b> cumple</p>
+      <p class="nombre" id="nombrePortada">Olivia</p>
+      <span class="cinta-edad">2 años</span>
+      <img class="puerta" src="puerta.webp" data-alt="puerta.png" alt="Sulley, Mike y Boo asomándose por la puerta" onerror="planB(this)">
+      <p class="frase-portada">¡Preparate para una fiesta asombrosamente divertida!</p>
+      <div class="fecha">
+        <span class="lado">Domingo</span>
+        <span class="mid"><b>06</b><small>Diciembre</small></span>
+        <span class="lado">a las 14 hs</span>
+      </div>
+      <p class="lugar-portada">Salón Plenitud · Pedro Santos Molina 473, Merlo, Provincia de Buenos Aires</p>
+    </div>
+    <div class="scroll-cue"><span>Seguí bajando</span><i></i></div>
+  </header>
+
+
+  <!-- ==================== FRASE ==================== -->
+  <section class="lunares frase reveal">
+    <div class="tarjeta">
+      <img class="mike" src="mike.webp" data-alt="mike.png" alt="Mike Wazowski" onerror="planB(this)">
+      <p class="cita">¡La risa es lo que mueve la fábrica!</p>
+      <p class="texto">Y la de Olivia es la más linda de todas. Vení a festejar con nosotros sus 2 años en una fiesta llena de juegos y risas.</p>
+      <div class="flores-fila" aria-hidden="true"><svg style="color:var(--lila)"><use href="#flor"/></svg><svg style="color:var(--rosa)"><use href="#flor"/></svg><svg style="color:var(--turquesa)"><use href="#flor"/></svg></div>
+    </div>
+  </section>
+
+
+  <!-- ==================== CUENTA REGRESIVA ==================== -->
+  <section class="pelaje reveal">
+    <div class="tarjeta">
+      <p class="kicker">Falta muy poquito</p>
+      <h2 class="titulo">¡Se abren las puertas!</h2>
+      <div class="reloj">
+        <div class="puertita"><b id="cdDias">00</b><small>Días</small></div>
+        <div class="puertita"><b id="cdHoras">00</b><small>Horas</small></div>
+        <div class="puertita"><b id="cdMin">00</b><small>Min</small></div>
+        <div class="puertita"><b id="cdSeg">00</b><small>Seg</small></div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ==================== FOTO ====================
+       ✎ FOTO: guardala en esta carpeta como "foto.jpg" -->
+  <section class="lunares reveal" style="padding-bottom:200px">
+    <span class="asoma" style="bottom:-8px;right:18px;width:112px"><img class="meneo" src="boo.webp" data-alt="boo.png" alt="" onerror="planB(this)"></span>
+    <div class="tarjeta z">
+      <p class="kicker">Miren quién cumple</p>
+      <h2 class="titulo">¡Nuestra pequeña Risita!</h2>
+      <div class="marco-puerta">
+        <div class="circulo">
+          <img src="foto.jpg" alt="Olivia" onerror="planB(this,'cartel')">
+          <span class="cartelito">Foto de<br>la cumpleañera<br>foto.jpg</span>
+        </div>
+      </div>
+      <p class="leyenda">¡Dos años de risas preciosas!</p>
+    </div>
+  </section>
+
+
+  <!-- ==================== CUÁNDO Y DÓNDE ====================
+       ✎ EDITABLE: día, número, mes, horario, lugar y dirección -->
+  <section class="pelaje reveal" style="padding-bottom:180px">
+    <span class="asoma" style="bottom:-10px;left:-10px;width:190px"><img class="meneo" src="mike-casco.webp" data-alt="mike-casco.png" alt="" onerror="planB(this)"></span>
+    <div class="tarjeta z">
+      <p class="kicker">Anotá la fecha</p>
+      <h2 class="titulo">¿Cuándo y dónde?</h2>
+      <div class="cuando">
+        <div><span class="lab">Domingo</span><span class="grande">06</span><span class="sub">Diciembre</span></div>
+        <div><span class="lab">Hora</span><span class="grande">14</span><span class="sub">a 18 hs</span></div>
+      </div>
+      <p class="donde-lugar"><b>Salón Plenitud</b><span>Pedro Santos Molina 473, Merlo, Provincia de Buenos Aires</span></p>
+      <div class="acciones">
+        <a class="btn lila" id="mapaLink" href="#" target="_blank" rel="noopener"><svg><use href="#ic-mapa"/></svg> Ver ubicación</a>
+        <div>
+          <button type="button" class="btn linea" id="calToggle"><svg><use href="#ic-cal"/></svg> Agendar la fecha</button>
+          <div class="cal-menu" id="calMenu">
+            <a href="#" id="gcalLink" target="_blank" rel="noopener">Google Calendar</a>
+            <a href="#" id="icsLink" download="cumple.ics">Apple · Outlook</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ==================== CONFIRMACIÓN ====================
+       ✎ EDITABLE: la fecha límite -->
+  <section class="lunares reveal" id="confirmar" style="padding-bottom:170px">
+    <span class="asoma" style="bottom:-6px;right:6px;width:150px"><img class="meneo" style="animation-delay:-1.5s" src="randall.webp" data-alt="randall.png" alt="" onerror="planB(this)"></span>
+    <div class="tarjeta z">
+      <p class="kicker">Te esperamos</p>
+      <h2 class="titulo">Confirmá tu asistencia</h2>
+      <p class="texto">Avisanos antes del 1 de Diciembre si venís, así preparamos todo.</p>
+      <div class="form" id="formulario">
+        <div class="campo"><label for="nombre">Tu nombre</label><input type="text" id="nombre" placeholder="Nombre y apellido" autocomplete="name"></div>
+        <div class="campo">
+          <span class="lbl">¿Venís?</span>
+          <div class="opciones"><button type="button" id="optSi">¡Sí, voy!</button><button type="button" id="optNo">No puedo</button></div>
+        </div>
+        <div class="campo" id="campoCuantos">
+          <span class="lbl">¿Cuántos van?</span>
+          <div class="contador">
+            <button type="button" id="menos" aria-label="Quitar una persona">−</button>
+            <span><b id="numPers">1</b><small id="etiqPers">Persona</small></span>
+            <button type="button" id="mas" aria-label="Sumar una persona">+</button>
+          </div>
+        </div>
+        <button type="button" class="btn verde" id="enviar" disabled><svg><use href="#ic-wa"/></svg> Confirmar por WhatsApp</button>
+      </div>
+      <div class="gracias" id="gracias">
+        <h3 id="graciasTitulo">¡Gracias!</h3>
+        <p id="graciasTexto" class="texto">¡Nos vemos en el cumple!</p>
+        <a class="btn verde" id="waLink" href="#" target="_blank" rel="noopener" style="max-width:300px;margin:12px auto 0"><svg><use href="#ic-wa"/></svg> Abrir WhatsApp</a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ==================== CIERRE ==================== -->
+  <section class="pelaje cierre reveal">
+    <div class="tarjeta">
+      <img class="dibujo" src="dibujo.webp" data-alt="dibujo.png" alt="El dibujo de Boo: Sulley y ella" onerror="planB(this)">
+      <p class="te-espero">¡Te esperamos!</p>
+      <p class="nombre-final" id="nombreCierre">Olivia</p>
+      <div class="flores-fila" aria-hidden="true"><svg style="color:var(--lila)"><use href="#flor"/></svg><svg style="color:var(--verde)"><use href="#flor"/></svg><svg style="color:var(--rosa)"><use href="#flor"/></svg></div>
+    </div>
+  </section>
+
+  <div class="pie"><p class="marca"><small>Invitación digital por</small>JEC</p></div>
+</div>
+
+<script>
+/* ============================================================
+   DATOS DEL EVENTO  ·  MODELO DE MUESTRA (datos inventados)
+   Los textos que se ven se cambian en el HTML (marcados con ✎).
+   OJO: día y mes SIEMPRE con dos cifras ('2026-11-07', no '2026-11-7').
+   ============================================================ */
+const NOMBRE = 'Olivia';
+
+const EVENTO = {
+  titulo : 'Cumple de ' + NOMBRE,
+  inicio : new Date('2026-12-06T14:00:00'),
+  fin    : new Date('2026-12-06T18:00:00'),
+  lugar  : 'Salón Plenitud, Pedro Santos Molina 473, Merlo, Provincia de Buenos Aires, CABA',
+  detalle: 'Cumpleaños de ' + NOMBRE + '. ¡Una fiesta asombrosamente divertida!'
+};
+
+/* Link de Google Maps del lugar. Si queda vacío, se busca la dirección. */
+const MAPA_LINK = '';
+
+/* WhatsApp que recibe las confirmaciones (549 + área sin 0 ni 15) */
+const WHATSAPP = '5491138490661';
+const MAX_PERSONAS = 2;
+
+/* ---------- Ubicación y calendario ---------- */
+function mapaUrl(dir){ return 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(dir); }
+function fechaCal(d){ return d.toISOString().replace(/[-:]/g,'').split('.')[0] + 'Z'; }
+document.getElementById('mapaLink').href = MAPA_LINK || mapaUrl(EVENTO.lugar);
+document.getElementById('gcalLink').href =
+  'https://calendar.google.com/calendar/render?action=TEMPLATE'
+  + '&text=' + encodeURIComponent(EVENTO.titulo)
+  + '&dates=' + fechaCal(EVENTO.inicio) + '/' + fechaCal(EVENTO.fin)
+  + '&details=' + encodeURIComponent(EVENTO.detalle)
+  + '&location=' + encodeURIComponent(EVENTO.lugar);
+const ics=['BEGIN:VCALENDAR','VERSION:2.0','BEGIN:VEVENT','SUMMARY:'+EVENTO.titulo,
+  'DTSTART:'+fechaCal(EVENTO.inicio),'DTEND:'+fechaCal(EVENTO.fin),
+  'LOCATION:'+EVENTO.lugar.replace(/,/g,'\\,'),'DESCRIPTION:'+EVENTO.detalle.replace(/,/g,'\\,'),'END:VEVENT','END:VCALENDAR'].join('\r\n');
+document.getElementById('icsLink').href = URL.createObjectURL(new Blob([ics],{type:'text/calendar'}));
+document.getElementById('calToggle').addEventListener('click', ()=> document.getElementById('calMenu').classList.toggle('open'));
+
+/* ---------- Cuenta regresiva ---------- */
+function pad(n){ return String(n).padStart(2,'0'); }
+function tick(){
+  const diff = EVENTO.inicio - new Date();
+  if(!(diff>0)){ ['cdDias','cdHoras','cdMin','cdSeg'].forEach(id=>document.getElementById(id).textContent='00'); return; }
+  document.getElementById('cdDias').textContent  = pad(Math.floor(diff/86400000));
+  document.getElementById('cdHoras').textContent = pad(Math.floor(diff/3600000)%24);
+  document.getElementById('cdMin').textContent   = pad(Math.floor(diff/60000)%60);
+  document.getElementById('cdSeg').textContent   = pad(Math.floor(diff/1000)%60);
+}
+tick(); setInterval(tick,1000);
+
+/* ---------- El nombre de la portada siempre entra ---------- */
+(function(){
+  const el=document.getElementById('nombrePortada');
+  function ajustar(){
+    el.style.fontSize='';
+    const sp=document.createElement('span'); sp.textContent=el.textContent; sp.style.display='inline-block';
+    el.textContent=''; el.appendChild(sp);
+    let fs=parseFloat(getComputedStyle(el).fontSize);
+    while(sp.offsetWidth>el.parentElement.clientWidth-8 && fs>18){ fs-=1; el.style.fontSize=fs+'px'; }
+    el.textContent=sp.textContent;
+  }
+  ajustar();
+  if(document.fonts && document.fonts.ready) document.fonts.ready.then(ajustar);
+  window.addEventListener('resize', ajustar);
+})();
+
+/* ---------- Invitación personalizada (?n=Familia%20Gomez&p=4) ---------- */
+const PARAMS=new URLSearchParams(location.search);
+const GUEST=(PARAMS.get('n')||'').trim();
+const PASES=parseInt(PARAMS.get('p'),10);
+if(GUEST){
+  const c=document.getElementById('chipInvitado'); c.textContent='Para '+GUEST; c.classList.add('on');
+  document.getElementById('nombre').value=GUEST;
+}
+
+/* ---------- Aparición al scroll ---------- */
+(function(){
+  const io=new IntersectionObserver((es)=>{
+    es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  },{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(el=> io.observe(el));
+})();
+
+/* ---------- La foto que no carga muestra el cartelito ---------- */
+(function(){
+  const img=document.querySelector('.marco-puerta img');
+  if(img && img.complete && img.naturalWidth===0) planB(img,'cartel');
+})();
+
+/* ---------- Música (si no está el archivo, el botón no aparece) ---------- */
+(function(){
+  const audio=document.getElementById('musica'), btn=document.getElementById('musicaBtn');
+  let hay=true;
+  function sinMusica(){ hay=false; btn.hidden=true; }
+  audio.addEventListener('error', sinMusica, true);
+  if(window.sinCancion) sinMusica();
+  function estado(){ document.body.classList.toggle('sonando', !audio.paused); }
+  audio.addEventListener('play', estado); audio.addEventListener('pause', estado);
+  function play(){ if(hay) audio.play().catch(()=>{}); }
+  btn.addEventListener('click', ()=>{ audio.paused ? play() : audio.pause(); });
+  play();
+  const primero=()=>{ play(); ['pointerdown','touchstart','keydown','scroll'].forEach(e=>document.removeEventListener(e,primero)); };
+  ['pointerdown','touchstart','keydown','scroll'].forEach(e=>document.addEventListener(e,primero,{once:true,passive:true}));
+  new IntersectionObserver((es)=>{ es.forEach(e=> btn.classList.toggle('visible', hay && !e.isIntersecting)); },{threshold:.15})
+    .observe(document.getElementById('portada'));
+})();
+
+/* ---------- Confirmación ---------- */
+(function(){
+  const nombre=document.getElementById('nombre'), enviar=document.getElementById('enviar');
+  const si=document.getElementById('optSi'), no=document.getElementById('optNo');
+  const cuantos=document.getElementById('campoCuantos');
+  const num=document.getElementById('numPers'), etiq=document.getElementById('etiqPers');
+  const menos=document.getElementById('menos'), mas=document.getElementById('mas');
+  const tope = PASES>0 ? Math.min(PASES, MAX_PERSONAS) : MAX_PERSONAS;
+  let va=null, cant = PASES>0 ? tope : 1;
+  function contador(){ num.textContent=cant; etiq.textContent=cant===1?'Persona':'Personas'; menos.disabled=cant<=1; mas.disabled=cant>=tope; }
+  function listo(){ enviar.disabled=!(va!==null && nombre.value.trim()); }
+  si.addEventListener('click', ()=>{ va=true; si.classList.add('on'); no.classList.remove('on'); cuantos.classList.add('open'); listo(); });
+  no.addEventListener('click', ()=>{ va=false; no.classList.add('on'); si.classList.remove('on'); cuantos.classList.remove('open'); listo(); });
+  menos.addEventListener('click', ()=>{ if(cant>1){ cant--; contador(); } });
+  mas.addEventListener('click', ()=>{ if(cant<tope){ cant++; contador(); } });
+  nombre.addEventListener('input', listo);
+  contador(); listo();
+  enviar.addEventListener('click', ()=>{
+    const n=nombre.value.trim()||'Invitado/a';
+    let msg;
+    if(va){
+      document.getElementById('graciasTitulo').textContent='¡Gracias, '+n+'!';
+      document.getElementById('graciasTexto').textContent='¡Nos vemos en el cumple!';
+      msg='¡Hola! Soy '+n+'. Confirmo la asistencia al cumple de '+NOMBRE+'. ¡Gracias por la invitación!';
+      //document.getElementById('graciasTexto').textContent='Confirmaste '+cant+' lugar'+(cant>1?'es':'')+'. ¡Nos vemos en el cumple!';
+      //msg='¡Hola! Soy '+n+'. Confirmo que vamos al cumple de '+NOMBRE+' ('+cant+' persona'+(cant>1?'s':'')+'). ¡Gracias por la invitación!';
+    }else{
+      document.getElementById('graciasTitulo').textContent='Gracias por avisar';
+      document.getElementById('graciasTexto').textContent='¡Te vamos a extrañar, '+n+'!';
+      msg='¡Hola! Soy '+n+'. Lamentablemente no voy a poder ir al cumple de '+NOMBRE+'. ¡Gracias por la invitación!';
+    }
+    const url='https://wa.me/'+WHATSAPP+'?text='+encodeURIComponent(msg);
+    document.getElementById('waLink').href=url;
+    document.getElementById('formulario').style.display='none';
+    document.getElementById('gracias').classList.add('show');
+    window.open(url,'_blank');
+  });
+})();
+</script>
+</body>
+</html>
